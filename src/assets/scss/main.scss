@@ -1,0 +1,128 @@
+@import '../../lib/hotcss/px2rem.scss';
+
+$act-color: #000;
+$text-color-imp: #fff;
+$text-color: #757575;
+$src-bg: #fafafa;
+$error-color: #f44336;
+$link-color:#00b7e9;
+
+// 设置字体大小
+$i-size: px2rem(50);
+$text-size-imp: px2rem(36);
+$text-size-h: px2rem(30);
+$text-size-mid: px2rem(28);
+$text-size: px2rem(24);
+$text-size-small: px2rem(22);
+
+// 高度公共的变量
+
+$th: px2rem(120); // 顶部的高度
+
+
+
+//弹性居中
+@mixin flex-center {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+//超出省略号
+@mixin ellipsis{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/*-------------- page_view -----------------------------------------*/
+.page_view {
+    transition: all .5s ease;
+    z-index: 99999;
+    background: #fff;
+    top: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.page_view_top{
+    transform: translate3d(0, -100%, 0);
+}
+.page_view_left{
+    transform: translate3d(100%, 0, 0);
+}
+.page_view_right{
+    transform: translate3d(-100%, 0, 0);
+}
+
+.page_view_default{
+    transform: translate3d(0px, 0px, 0px);
+}
+.page_box{
+    background: rgba(0, 0, 0, 0.8);
+    height: 100% ;
+}
+i.back_box {
+    height: px2rem(40);
+    position: absolute;
+    left: px2rem(20);
+    top: px2rem(20);
+    color: #fff;
+    font-size: $i-size;
+}
+.page_view_content{
+    width: 65%;
+    height: 100%;
+    overflow-y: scroll;
+    background: #fff;
+    padding: px2rem(20);
+}
+/*-------------- Mint UI init -----------------------------------------*/
+.mint-indicator{
+	.mint-spinner-snake{
+		height: px2rem(32)!important;
+    	width: px2rem(32)!important;
+	}
+	.mint-indicator-text{
+		margin-top: px2rem(10);
+    	font-size: $text-size;
+	}
+}
+
+
+
+
+.mint-msgbox{
+	font-size: $text-size-mid !important;
+	    width: 70% !important;
+	    border-radius: px2rem(10) !important;
+	.mint-msgbox-header{
+		padding: px2rem(15) 0 0;
+		.mint-msgbox-title{
+			font-size: $text-size-imp;
+			color: $error-color;
+			line-height: initial;
+			font-weight: normal;
+		}
+	}
+	.mint-msgbox-content{
+		padding: px2rem(10) px2rem(20) px2rem(15);
+    	min-height: px2rem(36);
+    	.mint-msgbox-message{
+    		line-height: px2rem(36);
+    	}
+	}
+	.mint-msgbox-btns{
+		height: auto;
+    	padding: px2rem(20);
+    	.mint-msgbox-btn{
+    		line-height: px2rem(35);
+    		font-size: $text-size-mid;
+    		color:$act-color;
+    	}
+	}
+}
