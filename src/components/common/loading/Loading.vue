@@ -109,7 +109,7 @@ export default {
     position: absolute;
     transform: translate(0, px2rem(-6.25));
     top: px2rem(50);
-    left: px2rem(150);
+    left: px2rem(175);
 }
 
 @-webkit-keyframes rotate_pacman_half_up {
