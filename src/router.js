@@ -143,7 +143,6 @@ router.afterEach((to, from, next) => {
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.needLogin)) {
         if (!store.state.user) {
-            // MessageBox('温馨提示', '请先登录');
             alert('请先登录');
             next({
                 path: '/login'

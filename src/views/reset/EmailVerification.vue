@@ -53,7 +53,10 @@ export default {
                     // 弹出等待的遮罩 层,防止二次点击.
                      this.$vLoading.show();
                     this.$api.SDK.User.requestPasswordReset(this.login_email).then((loginUser) => {
-                        this.$router.push({ path: '/login' }) 
+                        this.showAlert = true;
+                        this.alertText = "已发送一份重置密码的指令到你的邮箱";
+                        this.$vLoading.hide();
+                        // this.$router.push({ path: '/login' }) 
                     }).catch(error => {
                         this.showAlert = true;
                         this.alertText = error.rawMessage;

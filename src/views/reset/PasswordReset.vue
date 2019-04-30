@@ -34,37 +34,45 @@
                 <p>重置</p>
             </div>
         </div>
-        <alert-tip v-if="showAlert" @closeTip="showAlert = false" :alertText="alertText"></alert-tip> 
+        <alert-tip v-if="showAlert" @closeTip="showAlert = false" :alertText="alertText"></alert-tip>
     </div>
 </template>
 <script>
 import alertTip from '@/components/common/AlertTip'
+import Vue from 'vue'
+import VueJsonp from 'vue-jsonp'
+Vue.use(VueJsonp)
+
 export default {
     name: 'password-reset-wrap',
     data() {
         return {
             act_index: 1,
-             login_password: "",
+            login_password: "",
             login_rp_password: "",
             eye: false,
             showAlert: false,
             alertText: null,
+            token: ''
         };
     },
     mounted() {
         this.iosBlur();
     },
-    create(){
-         var tokens = location.search.match(/token=(\w*)/);
-          if(tokens&&tokens[1]){
-            this.token = tokens[1];
-          }
+    created() {
+        this.getToken();
     },
-    components:{
+    components: {
         alertTip
     },
     methods: {
-         eyePassword() {
+        getToken() {
+            var token = location.search.match(/token=(\w*)/);
+            if (token && token[1]) {
+                this.token = token[1];
+            }
+        },
+        eyePassword() {
             this.eye = !this.eye;
             if (this.eye) {
                 this.$refs.password1.type = "text";
@@ -76,27 +84,25 @@ export default {
         },
         PasswordResetBtnClick() {
             //判断当前是否校验全部通过
-
             this.$validator.validateAll().then((result) => {
                 if (result) {
                     // 弹出等待的遮罩 层,防止二次点击.
-                     this.$vLoading.show();
-                     var token = location.search.match(/token=(\w*)/);
-                      if(token&&token[1]){
-                        token = token[1];
-                    }
-                     console.log(token);
-                    this.$api.SDK.User.save(this.login_password,token).then((loginUser) => {
-                        this.showAlert = true;
-                        this.alertText = "密码重置成功";
-
-                    }).catch(error => {
-                        this.showAlert = true;
-                        this.alertText = error.rawMessage;
+                    this.$vLoading.show();
+                    Vue.jsonp("https://leancloud.cn/1/resetPassword/" + this.token, 
+                    {
+                        password: this.login_password,
+                        callbackParameter: 'callback',
+                        cache: false
+                    }).then(json => {
                         this.$vLoading.hide();
+                        this.showAlert = true;
+                        this.alertText = json.error;
+                    }).catch(error => {
+                        this.$vLoading.hide();
+                        this.showAlert = true;
+                        this.alertText = error;
                     })
                 }
-
             });
         }
     }
