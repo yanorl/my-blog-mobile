@@ -21,31 +21,31 @@
                         <img src="../assets/img/no_signUp.png">
                         <div class="menu-top-list">
                             <template v-if="user">
-                                <router-link to="/user" rel="nofollow">{{ user.getUsername() }}</router-link>
+                                <router-link @click.native="hideMenu" to="/user" rel="nofollow">{{ user.getUsername() }}</router-link>
                             </template>
                             <template v-else>
-                                <router-link to="/login" rel="nofollow">登录</router-link> |
-                                <router-link to="/reg" rel="nofollow">注册</router-link>
+                                <router-link  @click.native="hideMenu" to="/login" rel="nofollow">登录</router-link> |
+                                <router-link  @click.native="hideMenu" to="/reg" rel="nofollow">注册</router-link>
                             </template>
                         </div>
                     </div>
                     <div class="my-user">
                         <ul class="clearfix">
                             <li>
-                                <router-link to="/" rel="nofollow"><i class="fa fa-home"></i><br>首页</router-link>
+                                <router-link  @click.native="hideMenu" to="/" rel="nofollow"><i class="fa fa-home"></i><br>首页</router-link>
                             </li>
                             <li>
-                                <router-link to="/me" rel="nofollow"><i class="fa fa-book"></i><br>我的文章</router-link>
+                                <router-link  @click.native="hideMenu" to="/me" rel="nofollow"><i class="fa fa-book"></i><br>我的文章</router-link>
                             </li>
                             <li>
-                                <router-link to="/article/create" rel="nofollow"><i class="fa fa-pencil-square-o"></i><br>发布文章</router-link>
+                                <router-link  @click.native="hideMenu" to="/article/create" rel="nofollow"><i class="fa fa-pencil-square-o"></i><br>发布文章</router-link>
                             </li>
                         </ul>
                     </div>
                     <div class="menu-list clearfix">
                         <ul class="clearfix">
                             <li v-for="menu in categorys" :key="menu.objectId">
-                                <router-link :to="'/category?type='+menu.id"> {{ menu.get('name') }}</router-link>
+                                <router-link  @click.native="hideMenu" :to="'/category?type='+menu.id"> {{ menu.get('name') }}</router-link>
                             </li>
                         </ul>
                     </div>
@@ -69,9 +69,9 @@ export default {
     },
     computed: mapState(['user']),
     mounted() {
-        this.$router.afterEach((to, from) => {
-            this.toggleClass = false;
-        });
+        // this.$router.afterEach((to, from) => {
+        //     this.toggleClass = false;
+        // });
     },
     methods: {
         showMenu() {
